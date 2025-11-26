@@ -26,16 +26,15 @@ builder.Services.AddHttpClient();
 
 var hostConfig = builder.Configuration.GetSection(nameof(HostConfig)).Get<HostConfig>();
 
-builder.Services.AddSingleton(hostConfig);
+builder.Services.AddSingleton<HostConfig>(hostConfig);
+
 builder.Services.AddTransient<IDataService, DataService>();
 builder.Services.AddHttpClient();
 
-//builder.Services.AddSingleton<WebSocketPublisher>();
-
-//builder.Services.AddSingleton<IMessagePublisher, WebSocketPublisher>();
+builder.Services.AddSingleton<WebSocketPublisher>();
+builder.Services.AddSingleton<IMessagePublisher, WebSocketPublisher>();
 
 builder.Services.AddSignalR();
-
 builder.Services.AddSingleton<IMessagePublisher, SignalRPublisher>();
 builder.Services.AddSingleton<SignalRPublisher>();
 
@@ -44,12 +43,21 @@ builder.Services.AddQuartz(q =>
 {
     q.UseMicrosoftDependencyInjectionJobFactory();
 
-    var jobKey = new JobKey("BestLimitJob");
+    
 
-    q.AddJob<BestLimitJob>(opts => opts.WithIdentity(jobKey));
+    q.AddJob<SignalRJob>(opts => opts.WithIdentity(nameof(SignalRJob)));
+    q.AddJob<WebsocketJob>(opts => opts.WithIdentity(nameof(WebsocketJob)));
 
     q.AddTrigger(opts => opts
-        .ForJob(jobKey)
+        .ForJob(nameof(SignalRJob))
+        .WithIdentity("BestLimitJob-trigger")
+        .WithSimpleSchedule(x => x
+            .WithInterval(TimeSpan.FromSeconds(1))
+            .RepeatForever()
+        )
+    );
+    q.AddTrigger(opts => opts
+        .ForJob(nameof(WebsocketJob))
         .WithIdentity("BestLimitJob-trigger")
         .WithSimpleSchedule(x => x
             .WithInterval(TimeSpan.FromSeconds(1))
@@ -100,23 +108,23 @@ app.MapControllers();
 
 #region WebSocket
 
-//app.UseWebSockets();
+app.UseWebSockets();
 
-//app.Map("/ws/ins", async context =>
-//{
-//    if (context.WebSockets.IsWebSocketRequest)
-//    {
-//        var insCode = context.Request.Query["insCode"];
-//        var socket = await context.WebSockets.AcceptWebSocketAsync();
+app.Map("/ws/ins", async context =>
+{
+    if (context.WebSockets.IsWebSocketRequest)
+    {
+        var insCode = context.Request.Query["insCode"];
+        var socket = await context.WebSockets.AcceptWebSocketAsync();
 
-//        var wsService =(WebSocketPublisher) context.RequestServices.GetRequiredService<IMessagePublisher>();
-//        await wsService.HandleClient(socket, insCode);
-//    }
-//    else
-//    {
-//        context.Response.StatusCode = 400;
-//    }
-//});
+        var wsService = (WebSocketPublisher)context.RequestServices.GetRequiredService<IMessagePublisher>();
+        await wsService.HandleClient(socket, insCode);
+    }
+    else
+    {
+        context.Response.StatusCode = 400;
+    }
+});
 
 #endregion
 

@@ -4,7 +4,7 @@ using Quartz;
 using System.Text.Json;
 
 namespace BestLimtManagement;
-public class BestLimitJob(SignalRPublisher wsService, IDataService dataService) : IJob
+public class SignalRJob(SignalRPublisher wsService, IDataService dataService) : IJob
 {
     private readonly SignalRPublisher _publisher = wsService;
     private readonly IDataService _dataService = dataService;
