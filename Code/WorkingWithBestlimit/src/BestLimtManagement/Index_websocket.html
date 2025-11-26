@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Orders Viewer</title>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: right;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        input, select {
+            padding: 5px;
+            margin-top: 10px;
+            width: 300px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h2>جستجوی سفارشات نماد</h2>
+    <label>نام نماد:</label>
+    <input type="text" id="symbolInput" placeholder="نام نماد را وارد کنید...">
+
+    <label>ISIN:</label>
+    <select id="isinDropdown">
+        <option value="">ابتدا نماد را وارد کنید</option>
+    </select>
+
+    <table id="ordersTable">
+        <thead>
+            <tr>
+                <th>تعداد خرید</th>
+                <th>حجم خرید</th>
+                <th>خرید</th>
+                <th>فروش</th>
+                <th>حجم فروش</th>
+                <th>تعداد فروش</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const symbolInput = document.getElementById('symbolInput');
+        const isinDropdown = document.getElementById('isinDropdown');
+        const ordersTable = document.querySelector('#ordersTable tbody');
+
+        // --- جستجوی نماد و پر کردن Dropdown ---
+        symbolInput.addEventListener('input', async () => {
+            const symbol = symbolInput.value.trim();
+
+            if (!symbol) {
+                isinDropdown.innerHTML = '<option value="">ابتدا نماد را وارد کنید</option>';
+                ordersTable.innerHTML = "";
+                return;
+            }
+
+            try {
+                const res = await fetch(`https://localhost:44389/Symbols/Instruments/${encodeURIComponent(symbol)}`);
+                const data = await res.json();
+
+                // ریست کردن Dropdown
+                isinDropdown.innerHTML = '<option value="">انتخاب کنید</option>';
+
+                // پر کردن Dropdown با ISIN و نام فارسی (lVal30)
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.insCode;       // مقدار انتخابی ← ISIN
+                    option.textContent = item.lVal30; // متن نمایشی ← lVal30
+                    isinDropdown.appendChild(option);
+                });
+
+            } catch (err) {
+                console.error("خطا در دریافت اطلاعات Instruments:", err);
+            }
+        });
+
+        isinDropdown.addEventListener('change', async () => {
+            const isin = isinDropdown.value;
+
+            if (!isin) {
+                ordersTable.innerHTML = "";
+                return;
+            }
+
+            try {
+                const res = await fetch(`https://localhost:44389/Symbols/Bestlimits/${isin}`);
+                const orders = await res.json();
+
+                ordersTable.innerHTML = "";
+
+                orders.forEach(o => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${o.zOrdMeDem}</td>     <!-- تعداد خرید -->
+                        <td>${o.qTitMeDem}</td>     <!-- حجم خرید -->
+                        <td>${o.pMeDem}</td>        <!-- قیمت خرید -->
+                        <td>${o.pMeOf}</td>         <!-- قیمت فروش -->
+                        <td>${o.qTitMeOf}</td>      <!-- حجم فروش -->
+                        <td>${o.zOrdMeOf}</td>      <!-- تعداد فروش -->
+                    `;
+                    ordersTable.appendChild(row);
+                });
+
+            } catch (err) {
+                console.error("خطا در دریافت BestLimits:", err);
+            }
+        });
+
+        let socket = null;
+
+        function connectWebSocket(insCode) {
+            if (socket) socket.close();
+
+            socket = new WebSocket("wss://localhost:44389/ws/ins?insCode=" + insCode);
+
+            socket.onopen = () => console.log("WebSocket connected");
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                const tbody = document.querySelector("#ordersTable tbody");
+                tbody.innerHTML = "";
+
+                data.forEach(o => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                <td>${o.zOrdMeDem}</td>
+                <td>${o.qTitMeDem}</td>
+                <td>${o.pMeDem}</td>
+                <td>${o.pMeOf}</td>
+                <td>${o.qTitMeOf}</td>
+                <td>${o.zOrdMeOf}</td>
+            `;
+                    tbody.appendChild(row);
+                });
+            };
+
+            socket.onclose = () => console.log("WebSocket closed");
+        }
+
+        document.getElementById("isinDropdown").addEventListener("change", e => {
+            const insCode = e.target.value;
+            if (insCode) connectWebSocket(insCode);
+        });
+    </script>
+
+</body>
+</html>

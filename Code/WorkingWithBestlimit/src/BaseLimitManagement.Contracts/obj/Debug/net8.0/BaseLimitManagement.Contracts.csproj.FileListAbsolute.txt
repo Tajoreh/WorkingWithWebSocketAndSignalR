@@ -1,0 +1,11 @@
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\bin\Debug\net8.0\BaseLimitManagement.Contracts.deps.json
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\bin\Debug\net8.0\BaseLimitManagement.Contracts.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\bin\Debug\net8.0\BaseLimitManagement.Contracts.pdb
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\BaseLimitManagement.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\BaseLimitManagement.Contracts.AssemblyInfoInputs.cache
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\BaseLimitManagement.Contracts.AssemblyInfo.cs
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\BaseLimitManagement.Contracts.csproj.CoreCompileInputs.cache
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\BaseLimitManagement.Contracts.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\refint\BaseLimitManagement.Contracts.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\BaseLimitManagement.Contracts.pdb
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\ref\BaseLimitManagement.Contracts.dll

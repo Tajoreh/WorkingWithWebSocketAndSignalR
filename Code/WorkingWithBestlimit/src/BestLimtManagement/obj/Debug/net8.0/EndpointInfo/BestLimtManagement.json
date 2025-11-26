@@ -1,0 +1,165 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "BestLimtManagement",
+    "version": "1.0"
+  },
+  "paths": {
+    "/Symbols/Instruments/{instrumentName}": {
+      "get": {
+        "tags": [
+          "Symbols"
+        ],
+        "parameters": [
+          {
+            "name": "instrumentName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Instruments"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Instruments"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Instruments"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Symbols/Bestlimits/{isinCode}": {
+      "get": {
+        "tags": [
+          "Symbols"
+        ],
+        "parameters": [
+          {
+            "name": "isinCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BestLimit"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BestLimit"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BestLimit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BestLimit": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "qTitMeDem": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "zOrdMeDem": {
+            "type": "number",
+            "format": "double"
+          },
+          "pMeDem": {
+            "type": "number",
+            "format": "double"
+          },
+          "pMeOf": {
+            "type": "number",
+            "format": "double"
+          },
+          "zOrdMeOf": {
+            "type": "number",
+            "format": "double"
+          },
+          "qTitMeOf": {
+            "type": "number",
+            "format": "double"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "insCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Instruments": {
+        "type": "object",
+        "properties": {
+          "lVal30": {
+            "type": "string",
+            "nullable": true
+          },
+          "insCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

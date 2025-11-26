@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "BaseLimitManagement.Contracts/1.0.0": {
+        "runtime": {
+          "BaseLimitManagement.Contracts.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BaseLimitManagement.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
