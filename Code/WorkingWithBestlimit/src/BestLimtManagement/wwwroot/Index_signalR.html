@@ -147,7 +147,8 @@
             });
         });
 
-        connection.start().then(() => console.log("SignalR connected"));
+        connection.start()
+            .then(() =>console.log("SignalR connected"));
 
         isinDropdown.addEventListener("change", e => {
             const insCode = e.target.value;

@@ -1,12 +1,11 @@
 ﻿using BaseLimitManagement.Contracts;
-using Microsoft.AspNetCore.SignalR;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 
 namespace BestlimitManagement.Services;
 
-public class InsWebSocketService
+public class WebSocketPublisher : IMessagePublisher
 {
     private WebSocket? _currentClient;
     private string? _activeInsCode;
@@ -33,53 +32,15 @@ public class InsWebSocketService
         await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closed", CancellationToken.None);
     }
 
-    public async Task PushUpdateAsync(IEnumerable<BestLimit> data)
+    public string? GetActiveInsCode() => _activeInsCode;
+
+    public async Task PushMessage(IEnumerable<BestLimit> data)
     {
         if (_currentClient != null && _currentClient.State == WebSocketState.Open)
         {
             var json = JsonSerializer.Serialize(data);
             var bytes = Encoding.UTF8.GetBytes(json);
             await _currentClient.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, CancellationToken.None);
-        }
-    }
-
-    public string? GetActiveInsCode() => _activeInsCode;
-}
-
-public class BestLimitHub : Hub
-{
-    private readonly BestLimitHubService _hubService;
-
-    public BestLimitHub(BestLimitHubService hubService)
-    {
-        _hubService = hubService;
-    }
-
-    public async Task Subscribe(string insCode)
-    {
-        _hubService.SetInsCode(insCode);
-        await Clients.Caller.SendAsync("Subscribed", insCode);
-    }
-}
-public class BestLimitHubService
-{
-    private string? _activeInsCode;
-
-    public void SetInsCode(string insCode) => _activeInsCode = insCode;
-    public string? GetActiveInsCode() => _activeInsCode;
-
-    private readonly IHubContext<BestLimitHub> _hubContext;
-
-    public BestLimitHubService(IHubContext<BestLimitHub> hubContext)
-    {
-        _hubContext = hubContext;
-    }
-
-    public async Task PushUpdateAsync(IEnumerable<BestLimit> data)
-    {
-        if (_activeInsCode != null)
-        {
-            await _hubContext.Clients.All.SendAsync("ReceiveBestLimit", data);
         }
     }
 }

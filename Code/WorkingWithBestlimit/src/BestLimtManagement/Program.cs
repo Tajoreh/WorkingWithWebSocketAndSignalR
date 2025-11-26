@@ -1,6 +1,7 @@
 using BaseLimitManagement.Contracts;
 using BestlimitManagement.Services;
 using BestLimtManagement;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.WebSockets;
 using Quartz;
 
@@ -29,10 +30,15 @@ builder.Services.AddSingleton(hostConfig);
 builder.Services.AddTransient<IDataService, DataService>();
 builder.Services.AddHttpClient();
 
-builder.Services.AddSingleton<InsWebSocketService>();
+//builder.Services.AddSingleton<WebSocketPublisher>();
 
+//builder.Services.AddSingleton<IMessagePublisher, WebSocketPublisher>();
 
-builder.Services.AddSingleton<InsWebSocketService>();
+builder.Services.AddSignalR();
+
+builder.Services.AddSingleton<IMessagePublisher, SignalRPublisher>();
+builder.Services.AddSingleton<SignalRPublisher>();
+
 
 builder.Services.AddQuartz(q =>
 {
@@ -55,47 +61,68 @@ builder.Services.AddQuartz(q =>
 builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 
-var app = builder.Build();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Policy",
+                      policy =>
+                      {
+                          policy
+                          //.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .SetIsOriginAllowed(x=>true)
+                                .AllowCredentials();
+                      });
+});
+
+
+var app = builder.Build();
+app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseRouting();
+app.UseCors("Policy");
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
 
+
+
+
+app.MapControllers();
 
 #region WebSocket
 
-app.UseWebSockets();
+//app.UseWebSockets();
 
-app.Map("/ws/ins", async context =>
-{
-    if (context.WebSockets.IsWebSocketRequest)
-    {
-        var insCode = context.Request.Query["insCode"];
-        var socket = await context.WebSockets.AcceptWebSocketAsync();
+//app.Map("/ws/ins", async context =>
+//{
+//    if (context.WebSockets.IsWebSocketRequest)
+//    {
+//        var insCode = context.Request.Query["insCode"];
+//        var socket = await context.WebSockets.AcceptWebSocketAsync();
 
-        var wsService = context.RequestServices.GetRequiredService<InsWebSocketService>();
-        await wsService.HandleClient(socket, insCode);
-    }
-    else
-    {
-        context.Response.StatusCode = 400;
-    }
-});
+//        var wsService =(WebSocketPublisher) context.RequestServices.GetRequiredService<IMessagePublisher>();
+//        await wsService.HandleClient(socket, insCode);
+//    }
+//    else
+//    {
+//        context.Response.StatusCode = 400;
+//    }
+//});
 
 #endregion
-
 
 #region SignalR
 app.MapHub<BestLimitHub>("/bestlimitHub");
 
 #endregion
+
 app.Run();

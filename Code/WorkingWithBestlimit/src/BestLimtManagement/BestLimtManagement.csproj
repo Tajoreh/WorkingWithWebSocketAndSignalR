@@ -17,4 +17,9 @@
     <ProjectReference Include="..\BestlimitManagement.Services\BestlimitManagement.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Index_signalR.html" />
+    <None Include="wwwroot\Index_websocket.html" />
+  </ItemGroup>
+
 </Project>
