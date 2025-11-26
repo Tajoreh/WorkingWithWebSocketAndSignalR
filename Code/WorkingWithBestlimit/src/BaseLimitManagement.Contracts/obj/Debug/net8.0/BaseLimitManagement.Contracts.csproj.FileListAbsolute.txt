@@ -9,3 +9,4 @@ D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debu
 D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\refint\BaseLimitManagement.Contracts.dll
 D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\BaseLimitManagement.Contracts.pdb
 D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\ref\BaseLimitManagement.Contracts.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BaseLimitManagement.Contracts\obj\Debug\net8.0\BaseLimitManagement.Contracts.sourcelink.json

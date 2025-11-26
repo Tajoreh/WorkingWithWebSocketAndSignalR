@@ -32,18 +32,6 @@ builder.Services.AddHttpClient();
 builder.Services.AddSingleton<InsWebSocketService>();
 
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("Policy",
-                      policy =>
-                      {
-                          policy.AllowAnyOrigin()
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                      });
-});
-
-
 builder.Services.AddSingleton<InsWebSocketService>();
 
 builder.Services.AddQuartz(q =>
@@ -69,7 +57,6 @@ builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 var app = builder.Build();
 
-app.UseCors("Policy");
 
 if (app.Environment.IsDevelopment())
 {
@@ -106,4 +93,9 @@ app.Map("/ws/ins", async context =>
 
 #endregion
 
+
+#region SignalR
+app.MapHub<BestLimitHub>("/bestlimitHub");
+
+#endregion
 app.Run();

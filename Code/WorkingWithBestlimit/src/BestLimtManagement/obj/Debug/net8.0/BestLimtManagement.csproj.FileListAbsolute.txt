@@ -52,3 +52,4 @@ D:\Projects\Code\WorkingWithBestlimit\src\BestLimtManagement\bin\Debug\net8.0\Mi
 D:\Projects\Code\WorkingWithBestlimit\src\BestLimtManagement\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 D:\Projects\Code\WorkingWithBestlimit\src\BestLimtManagement\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\Projects\Code\WorkingWithBestlimit\src\BestLimtManagement\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BestLimtManagement\obj\Debug\net8.0\BestLimtManagement.sourcelink.json

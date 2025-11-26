@@ -1,4 +1,5 @@
 ﻿using BaseLimitManagement.Contracts;
+using Microsoft.AspNetCore.SignalR;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
@@ -45,3 +46,40 @@ public class InsWebSocketService
     public string? GetActiveInsCode() => _activeInsCode;
 }
 
+public class BestLimitHub : Hub
+{
+    private readonly BestLimitHubService _hubService;
+
+    public BestLimitHub(BestLimitHubService hubService)
+    {
+        _hubService = hubService;
+    }
+
+    public async Task Subscribe(string insCode)
+    {
+        _hubService.SetInsCode(insCode);
+        await Clients.Caller.SendAsync("Subscribed", insCode);
+    }
+}
+public class BestLimitHubService
+{
+    private string? _activeInsCode;
+
+    public void SetInsCode(string insCode) => _activeInsCode = insCode;
+    public string? GetActiveInsCode() => _activeInsCode;
+
+    private readonly IHubContext<BestLimitHub> _hubContext;
+
+    public BestLimitHubService(IHubContext<BestLimitHub> hubContext)
+    {
+        _hubContext = hubContext;
+    }
+
+    public async Task PushUpdateAsync(IEnumerable<BestLimit> data)
+    {
+        if (_activeInsCode != null)
+        {
+            await _hubContext.Clients.All.SendAsync("ReceiveBestLimit", data);
+        }
+    }
+}

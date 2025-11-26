@@ -13,3 +13,4 @@ D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug
 D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\refint\BestlimitManagement.Services.dll
 D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\BestlimitManagement.Services.pdb
 D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\ref\BestlimitManagement.Services.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\BestlimitManagement.Services.sourcelink.json
