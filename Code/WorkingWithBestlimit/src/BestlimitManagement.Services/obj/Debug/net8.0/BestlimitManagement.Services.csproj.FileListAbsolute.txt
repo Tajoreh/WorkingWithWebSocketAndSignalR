@@ -1,0 +1,15 @@
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\BestlimitManagement.Services.csproj.AssemblyReference.cache
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\BestlimitManagement.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\BestlimitManagement.Services.AssemblyInfoInputs.cache
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\BestlimitManagement.Services.AssemblyInfo.cs
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\BestlimitManagement.Services.csproj.CoreCompileInputs.cache
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\bin\Debug\net8.0\BestlimitManagement.Services.deps.json
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\bin\Debug\net8.0\BestlimitManagement.Services.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\bin\Debug\net8.0\BestlimitManagement.Services.pdb
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\bin\Debug\net8.0\BaseLimitManagement.Contracts.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\bin\Debug\net8.0\BaseLimitManagement.Contracts.pdb
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\Bestlimi.730D29CD.Up2Date
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\BestlimitManagement.Services.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\refint\BestlimitManagement.Services.dll
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\BestlimitManagement.Services.pdb
+D:\Projects\Code\WorkingWithBestlimit\src\BestlimitManagement.Services\obj\Debug\net8.0\ref\BestlimitManagement.Services.dll
