@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BaseLimitManagement.Contracts")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3ce596d15db72d7b143b1ddbb6182a3b31835bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd468d11b2b6e00765296d096d150a925b4a6d44")]
 [assembly: System.Reflection.AssemblyProductAttribute("BaseLimitManagement.Contracts")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BaseLimitManagement.Contracts")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
