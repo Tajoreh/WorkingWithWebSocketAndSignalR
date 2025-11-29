@@ -32,10 +32,8 @@ builder.Services.AddTransient<IDataService, DataService>();
 builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<WebSocketPublisher>();
-builder.Services.AddSingleton<IMessagePublisher, WebSocketPublisher>();
 
 builder.Services.AddSignalR();
-builder.Services.AddSingleton<IMessagePublisher, SignalRPublisher>();
 builder.Services.AddSingleton<SignalRPublisher>();
 
 
@@ -117,7 +115,7 @@ app.Map("/ws/ins", async context =>
         var insCode = context.Request.Query["insCode"];
         var socket = await context.WebSockets.AcceptWebSocketAsync();
 
-        var wsService = (WebSocketPublisher)context.RequestServices.GetRequiredService<IMessagePublisher>();
+        var wsService = context.RequestServices.GetRequiredService<WebSocketPublisher>();
         await wsService.HandleClient(socket, insCode);
     }
     else

@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace BestlimitManagement.Services;
 
-public class WebSocketPublisher : IMessagePublisher
+public class WebSocketPublisher 
 {
     private WebSocket? _currentClient;
     private string? _activeInsCode;
